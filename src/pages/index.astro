@@ -1,16 +1,26 @@
 ---
-
+import BlogPost from "../components/BlogPost.astro";
+import BaseLayout from "../layouts/BaseLayout.astro";
+const pageTitle = "Home";
+const allPosts = Object.values(
+  import.meta.glob("./posts/*.md", { eager: true }),
+).sort(
+  (a: any, b: any) =>
+    new Date(b.frontmatter.pubDate).getTime() -
+    new Date(a.frontmatter.pubDate).getTime(),
+);
 ---
 
-<html lang="zh-cn">
-  <head>
-    <meta charset="utf-8" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <meta name="viewport" content="width=device-width" />
-    <meta name="generator" content={Astro.generator} />
-    <title>Astro</title>
-  </head>
-  <body>
-    <h1>我的 Astro 站点</h1>
-  </body>
-</html>
+<BaseLayout pageTitle={pageTitle}>
+  <ul class="post-list">
+    {
+      allPosts.map((post: any) => (
+        <BlogPost
+          url={post.url}
+          title={post.frontmatter.title}
+          pubDate={post.frontmatter.pubDate}
+        />
+      ))
+    }
+  </ul>
+</BaseLayout>

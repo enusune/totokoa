@@ -1,0 +1,26 @@
+---
+const { pathname } = Astro.url;
+
+const navLinks = [
+  { href: "/", label: "home" },
+  { href: "/about/", label: "about" },
+//   { href: "/blog/", label: "blog" },
+  { href: "/tags/", label: "tags" },
+];
+
+function isActive(href: string) {
+  if (href === "/") return pathname === "/";
+  return pathname.startsWith(href);
+}
+---
+
+<div id="main-menu" class="nav-links">
+  {
+    navLinks.map(({ href, label }) => (
+      <a href={href} class:list={[{ active: isActive(href) }]}>
+        {label}
+      </a>
+    ))
+  }
+</div>
+

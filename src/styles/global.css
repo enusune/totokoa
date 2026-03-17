@@ -1,0 +1,280 @@
+/* ============================================================
+   设计系统变量
+   ============================================================ */
+:root {
+  /* 颜色 */
+  --color-bg: #ffffff;
+  --color-surface: #fafafa;
+  --color-text: #111111;
+  --color-text-muted: #888888;
+  --color-border: #d4d4d4;
+  --color-border-strong: #222222;
+  --color-accent: #111111;
+  --color-link: #111111;
+  --color-link-hover: #555555;
+
+  /* 字体族 */
+  --font-sans: "Inter", "SF Pro Text", system-ui, -apple-system, sans-serif;
+  --font-mono: "JetBrains Mono", "Fira Code", "Cascadia Code", monospace;
+
+  /* 字号 */
+  --font-size-xs:   0.75rem;   /* 12px */
+  --font-size-sm:   0.875rem;  /* 14px */
+  --font-size-base: 1rem;      /* 16px */
+  --font-size-lg:   1.125rem;  /* 18px */
+  --font-size-xl:   1.5rem;    /* 24px */
+  --font-size-2xl:  2rem;      /* 32px */
+  --font-size-3xl:  2.5rem;    /* 40px */
+
+  /* 字重 */
+  --font-weight-normal: 400;
+  --font-weight-medium: 500;
+  --font-weight-bold:   700;
+
+  /* 行高 */
+  --line-height-tight:  1.25;
+  --line-height-normal: 1.6;
+  --line-height-loose:  1.75;
+
+  /* 间距（整体收紧） */
+  --space-1:  0.25rem;
+  --space-2:  0.5rem;
+  --space-3:  0.75rem;
+  --space-4:  1rem;
+  --space-6:  1.25rem;
+  --space-8:  1.75rem;
+  --space-12: 2.5rem;
+  --space-16: 3rem;
+
+  /* 布局 */
+  --max-width: 68ch;
+  --border-width: 1px;
+}
+
+/* ============================================================
+   暗黑模式变量覆盖（.dark 由 ThemeIcon.astro 挂载至 <html>）
+   ============================================================ */
+.dark {
+  --color-bg: #0f0f0f;
+  --color-surface: #1a1a1a;
+  --color-text: #e4e4e4;
+  --color-text-muted: #666666;
+  --color-border: #2a2a2a;
+  --color-border-strong: #bbbbbb;
+  --color-accent: #e4e4e4;
+  --color-link: #e4e4e4;
+  --color-link-hover: #999999;
+}
+
+/* ============================================================
+   重置与基础
+   ============================================================ */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  background-color: var(--color-bg);
+  font-family: var(--font-sans);
+  font-size: var(--font-size-base);
+  color: var(--color-text);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  margin: 0 auto;
+  width: 100%;
+  
+  line-height: var(--line-height-normal);
+}
+
+/* ============================================================
+   排版
+   ============================================================ */
+h1, h2, h3, h4, h5, h6 {
+  font-weight: var(--font-weight-bold);
+  line-height: var(--line-height-tight);
+  color: var(--color-text);
+}
+
+h1 {
+  font-size: var(--font-size-3xl);
+  margin-top: var(--space-4);
+  margin-bottom: var(--space-4);
+  padding-bottom: var(--space-3);
+  border-bottom: var(--border-width) dashed var(--color-border);
+}
+
+h2 {
+  font-size: var(--font-size-2xl);
+  margin-top: var(--space-6);
+  margin-bottom: var(--space-3);
+}
+
+h3 {
+  font-size: var(--font-size-xl);
+  margin-top: var(--space-4);
+  margin-bottom: var(--space-2);
+}
+
+h4, h5, h6 {
+  font-size: var(--font-size-lg);
+  margin-top: var(--space-3);
+  margin-bottom: var(--space-2);
+}
+
+p {
+  margin-bottom: var(--space-3);
+  line-height: var(--line-height-loose);
+}
+
+/* ============================================================
+   链接
+   ============================================================ */
+a {
+  color: var(--color-link);
+  text-decoration: none;
+  border-bottom: var(--border-width) solid transparent;
+  transition: border-color 0.15s ease, color 0.15s ease;
+}
+
+a:hover,
+a:focus {
+  color: var(--color-link-hover);
+  border-bottom-color: var(--color-link-hover);
+  outline: none;
+}
+
+/* ============================================================
+   列表
+   ============================================================ */
+ul, ol {
+  padding-left: var(--space-6);
+  margin-bottom: var(--space-3);
+}
+
+li {
+  margin-bottom: var(--space-1);
+  line-height: var(--line-height-loose);
+}
+
+/* ============================================================
+   代码
+   ============================================================ */
+code {
+  font-family: var(--font-mono);
+  font-size: var(--font-size-sm);
+  background-color: var(--color-surface);
+  border: var(--border-width) solid var(--color-border);
+  padding: 0.1em 0.35em;
+}
+
+pre {
+  font-family: var(--font-mono);
+  font-size: var(--font-size-sm);
+  background-color: var(--color-surface);
+  border: var(--border-width) dashed var(--color-border);
+  border-left: 2px solid var(--color-border-strong);
+  padding: var(--space-4);
+  overflow-x: auto;
+  margin-bottom: var(--space-3);
+  line-height: var(--line-height-normal);
+}
+
+pre code {
+  background: none;
+  border: none;
+  padding: 0;
+}
+
+/* ============================================================
+   分割线
+   ============================================================ */
+hr {
+  border: none;
+  border-top: var(--border-width) dashed var(--color-border);
+  margin: var(--space-6) 0;
+}
+
+/* ============================================================
+   导航（响应式）
+   ============================================================ */
+.menu {
+  background: none;
+  border: var(--border-width) dashed var(--color-border-strong);
+  color: var(--color-text);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-medium);
+  font-family: var(--font-sans);
+  padding: var(--space-1) var(--space-3);
+  cursor: pointer;
+  letter-spacing: 0.05em;
+}
+
+.menu:hover {
+  background-color: var(--color-text);
+  color: var(--color-bg);
+}
+
+.nav-links {
+  width: 100%;
+  display: none;
+  margin: 0;
+  border-top: var(--border-width) dashed var(--color-border);
+}
+
+.nav-links a {
+  display: block;
+  text-align: left;
+  padding: var(--space-2) 0;
+  text-decoration: none;
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-medium);
+  color: var(--color-text);
+  border-bottom: 2px solid transparent;
+  transition: border-color 0.15s ease, color 0.15s ease;
+  letter-spacing: 0.02em;
+}
+
+.nav-links a:hover,
+.nav-links a:focus {
+  color: var(--color-link-hover);
+  border-bottom-color: transparent;
+  background: none;
+}
+
+:has(.menu[aria-expanded="true"]) .nav-links {
+  display: block;
+}
+
+@media screen and (min-width: 636px) {
+  .nav-links {
+    display: flex;
+    gap: var(--space-1);
+    border-top: none;
+    margin-left: var(--space-4);
+    width: auto;
+    background: none;
+  }
+
+  .nav-links a {
+    display: inline-block;
+    padding: var(--space-1) var(--space-2);
+    border-bottom: 2px solid transparent;
+  }
+
+  .nav-links a:hover,
+  .nav-links a:focus {
+    color: var(--color-accent);
+    border-bottom-color: var(--color-accent);
+  }
+
+  .menu {
+    display: none;
+  }
+}

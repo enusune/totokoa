@@ -1,0 +1,49 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import BlogPost from "../../components/BlogPost.astro";
+
+export async function getStaticPaths() {
+  const allPosts = Object.values(
+    import.meta.glob("../posts/*.md", { eager: true }) as Record<string, any>,
+  );
+
+  const uniqueTags = [
+    ...new Set(allPosts.flatMap((post) => post.frontmatter.tags ?? [])),
+  ];
+
+  return uniqueTags.map((tag) => ({
+    params: { tag },
+    props: {
+      posts: allPosts
+        .filter((post) => post.frontmatter.tags?.includes(tag))
+        .map((post) => ({
+          url: post.url,
+          title: post.frontmatter.title,
+          pubDate: post.frontmatter.pubDate,
+        }))
+        .sort(
+          (a: any, b: any) =>
+            new Date(b.pubDate).getTime() - new Date(a.pubDate).getTime(),
+        ),
+    },
+  }));
+}
+
+const { tag } = Astro.params;
+const { posts } = Astro.props;
+---
+
+<BaseLayout pageTitle={tag}>
+  <p>Posts with the "{tag}" tag</p>
+  {
+    posts?.length > 0 ? (
+      <ul>
+        {posts.map((post: any) => (
+          <BlogPost url={post.url} title={post.title} pubDate={post.pubDate} />
+        ))}
+      </ul>
+    ) : (
+      <p>No posts found with the "{tag}" tag</p>
+    )
+  }
+</BaseLayout>

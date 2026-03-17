@@ -1,0 +1,52 @@
+---
+const { url, title, pubDate } = Astro.props;
+const date = new Date(pubDate).toLocaleDateString("en-US", {
+  year: "numeric",
+  month: "long",
+  day: "numeric",
+});
+---
+
+<li class="post-item">
+  <a href={url}>
+    <span>{title}&nbsp;</span>
+    <div class="post-meta">{date}</div></a
+  >
+</li>
+<style>
+  .post-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px dashed var(--color-border);
+    padding: var(--space-3) 0;
+  }
+
+  .post-item:first-child {
+    /* border-top: 1px dashed var(--color-border); */
+  }
+
+  a {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: var(--font-size-lg);
+    font-weight: var(--font-weight-medium);
+    color: var(--color-text);
+    text-decoration: none;
+    border-bottom: 1px solid transparent;
+    transition:
+      border-color 0.15s ease,
+      color 0.15s ease;
+  }
+
+  a:hover {
+    color: var(--color-link-hover);
+    border-bottom-color: var(--color-link-hover);
+  }
+  .post-meta {
+    font-size: var(--font-size-sm);
+    color: var(--color-text-muted);
+  }
+</style>

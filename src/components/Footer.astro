@@ -1,0 +1,39 @@
+---
+import Social from "./Social.astro";
+---
+
+<footer>
+  <div class="social">
+    <!-- <Social platform="twitter" username="astrodotbuild" /> -->
+    <Social platform="github" username="enusune" />
+    <!-- <Social platform="youtube" username="astrodotbuild" /> -->
+  </div>
+</footer>
+<style>
+  footer {
+    position: fixed;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    right: 0;
+    display: flex;
+    gap: var(--space-4);
+    color: var(--color-text-muted);
+    background-color: var(--color-bg, #fff);
+    z-index: 100;
+    width: 100%;
+    max-width: var(--max-width);
+  }
+  .social {
+    font-size: var(--font-size-sm);
+    border-top: 1px dashed var(--color-border);
+    padding: var(--space-4) ;
+    box-sizing: border-box;
+    display: flex;
+    gap: var(--space-4);
+    justify-content: flex-start;
+    align-items: center;
+    width: 100%;
+    margin: 0 auto;
+  }
+</style>
