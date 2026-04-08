@@ -96,9 +96,9 @@ const siteName = "Bloooooooooog";
   </head>
   <body>
     <Header />
-    <div>
+    <main class="page-shell">
       <slot />
-    </div>
+    </main>
     <Footer />
     <script>
       import "../scripts/menu.js";
@@ -106,9 +106,15 @@ const siteName = "Bloooooooooog";
   </body>
 </html>
 <style>
-  div {
+  .page-shell {
     max-width: var(--max-width);
-    padding: var(--space-4) var(--space-4) 4.5rem;
+    padding: var(--space-6) var(--page-gutter) calc(var(--footer-height) + var(--space-4));
     margin: 0 auto;
+  }
+
+  @media screen and (min-width: 636px) {
+    .page-shell {
+      padding-top: var(--space-8);
+    }
   }
 </style>

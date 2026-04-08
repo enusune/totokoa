@@ -55,19 +55,21 @@ const { frontmatter } = Astro.props;
     font-size: var(--font-size-xs);
     font-weight: var(--font-weight-medium);
     color: var(--color-text);
-    border: 1px solid var(--color-border-strong);
+    border: 1px dashed var(--color-border);
+    background: var(--color-surface);
+    border-radius: var(--radius-lg);
     padding: var(--space-1) var(--space-3);
     text-decoration: none;
     letter-spacing: 0.04em;
     transition:
       background-color 0.15s ease,
-      color 0.15s ease;
-    border-bottom: 1px solid var(--color-border-strong);
+      color 0.15s ease,
+      border-color 0.15s ease;
   }
 
   .tag:hover {
-    background-color: var(--color-text);
-    color: var(--color-bg);
-    border-bottom-color: var(--color-text);
+    background-color: var(--color-surface-elevated);
+    color: var(--color-text);
+    border-color: var(--color-border-strong);
   }
 </style>

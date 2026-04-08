@@ -1,12 +1,5 @@
----
-import Social from "./Social.astro";
----
-
 <footer>
   <div class="social">
-    <!-- <Social platform="github" username="enusune" /> -->
-    <!-- <Social platform="github" username="enusune" /> -->
-    <!-- <Social platform="github" username="enusune" /> -->
   </div>
 </footer>
 <style>
@@ -17,9 +10,8 @@ import Social from "./Social.astro";
     transform: translateX(-50%);
     right: 0;
     display: flex;
-    gap: var(--space-4);
     color: var(--color-text-muted);
-    background-color: var(--color-bg, #fff);
+    background: var(--color-bg);
     z-index: 100;
     width: 100%;
     max-width: var(--max-width);
@@ -27,10 +19,9 @@ import Social from "./Social.astro";
   .social {
     font-size: var(--font-size-sm);
     border-top: 1px dashed var(--color-border);
-    padding: var(--space-4) ;
-    box-sizing: border-box;
+    min-height: var(--footer-height);
+    padding: 0 var(--page-gutter);
     display: flex;
-    gap: var(--space-4);
     justify-content: flex-start;
     align-items: center;
     width: 100%;

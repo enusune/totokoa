@@ -1,40 +1,29 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
 const pageTitle = "About";
-const identity = {
-  firstName: "Sarah",
-  country: "Canada",
-  occupation: "Technical Writer",
-  hobbies: ["Photography", "Birdwatching", "Baseball"],
-};
-
-const skills = ["HTML", "CSS", "JavaScript", "React", "Astro", "Writing Docs"];
-
-const happy = true;
-const finished = true;
-const goal = 3;
 ---
 
 <BaseLayout pageTitle={pageTitle}>
-  <h2>About Me</h2>
+  <section class="page-stack">
+    <header class="page-header">
+      <span class="page-eyebrow">About</span>
+    </header>
 
-  <p>
-    Hello! I'm a Full-Stack Developer with a deep passion for building scalable
-    web applications. With expertise in Java (Spring Boot) and modern frontend
-    frameworks like React and Vue, I spend my days bridging the gap between
-    robust backend logic and intuitive user interfaces.
-  </p>
+    <div class="page-body">
+      <p>
+        I'm a full-stack developer focused on building reliable web products
+        across backend systems and modern frontend interfaces.
+      </p>
 
-  <p>
-    I created this blog to document my journey through the evolving AI
-    landscape—specifically how tools like Cursor and Claude Code are reshaping
-    the way we write code. Whether you're here to solve a tricky Java bug or to
-    optimize your React performance, I hope you find my technical deep-dives
-    helpful.
-  </p>
+      <p>
+        This blog is where I collect notes on AI tooling, coding workflows, and
+        the practical tradeoffs behind shipping software with less friction.
+      </p>
 
-  <p>
-    When I'm not coding, I'm usually exploring the latest in AI image generation
-    or fine-tuning my development workflow.
-  </p>
+      <p>
+        Most of the writing here sits at the intersection of engineering,
+        tooling, and day-to-day execution quality.
+      </p>
+    </div>
+  </section>
 </BaseLayout>

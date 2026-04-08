@@ -10,13 +10,19 @@ const tags = [
 ---
 
 <BaseLayout pageTitle={pageTitle}>
-  <ul>
-    {
-      tags.map((tag) => (
-        <li>
-          <a href={`/tags/${tag}`}>{tag}</a>
-        </li>
-      ))
-    }
-  </ul>
+  <section class="page-stack">
+    <header class="page-header">
+      <span class="page-eyebrow">Topics</span>
+    </header>
+
+    <ul class="plain-list tag-grid">
+      {
+        tags.map((tag) => (
+          <li>
+            <a href={`/tags/${tag}`} class="tag-link">{tag}</a>
+          </li>
+        ))
+      }
+    </ul>
+  </section>
 </BaseLayout>

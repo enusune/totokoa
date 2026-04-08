@@ -9,29 +9,21 @@ const pageTitle = "Blog";
 ---
 
 <BaseLayout pageTitle={pageTitle}>
-  <p>I will share my Astro learning journey here.</p>
-  <ul class="post-list">
-    {
-      allPosts.map((post: any) => (
-        <BlogPost
-          url={post.url}
-          title={post.frontmatter.title}
-          pubDate={post.frontmatter.pubDate}
-        />
-      ))
-    }
-  </ul>
+  <section class="page-stack">
+    <header class="page-header">
+      <span class="page-eyebrow">Archive</span>
+    </header>
+
+    <ul class="plain-list">
+      {
+        allPosts.map((post: any) => (
+          <BlogPost
+            url={post.url}
+            title={post.frontmatter.title}
+            pubDate={post.frontmatter.pubDate}
+          />
+        ))
+      }
+    </ul>
+  </section>
 </BaseLayout>
-
-<style>
-  p {
-    color: var(--color-text-muted);
-    margin-bottom: var(--space-8);
-  }
-
-  .post-list {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-  }
-</style>

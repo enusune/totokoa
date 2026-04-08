@@ -14,7 +14,7 @@ function isActive(href: string) {
 }
 ---
 
-<div id="main-menu" class="nav-links">
+<div id="main-menu" class="nav-links" aria-label="Primary navigation">
   {
     navLinks.map(({ href, label }) => (
       <a href={href} class:list={[{ active: isActive(href) }]}>
@@ -23,4 +23,3 @@ function isActive(href: string) {
     ))
   }
 </div>
-

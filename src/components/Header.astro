@@ -5,8 +5,8 @@ import ThemeIcon from "./ThemeIcon.astro";
 ---
 
 <header>
-  <nav>
-    <div>
+  <nav class="header-nav">
+    <div class="header-controls">
       <ThemeIcon />
       <Menu />
     </div>
@@ -15,23 +15,52 @@ import ThemeIcon from "./ThemeIcon.astro";
 </header>
 <style>
   header {
+    position: sticky;
+    top: 0;
+    z-index: 20;
     border-bottom: 1px dashed var(--color-border);
-    padding: var(--space-3) 0;
-    margin-bottom: var(--space-4);
+    background: var(--color-bg);
+    padding: var(--space-3) var(--page-gutter);
     max-width: var(--max-width);
     margin: 0 auto;
   }
 
-  nav {
+  .header-nav {
+    position: relative;
     display: flex;
-    align-items: center;
-    gap: var(--space-4);
+    flex-direction: column;
+    gap: var(--space-3);
   }
-  div {
+
+  .header-controls {
     display: flex;
     justify-content: space-between;
+    align-items: center;
+    width: 100%;
   }
-  nav {
-   
+
+  .header-nav :global(.nav-links) {
+    position: absolute;
+    top: calc(100% + var(--space-2));
+    right: 0;
+    z-index: 30;
+  }
+
+  @media screen and (min-width: 636px) {
+    .header-nav {
+      flex-direction: row;
+      align-items: center;
+      gap: var(--space-4);
+    }
+
+    .header-controls {
+      width: auto;
+      justify-content: flex-start;
+      gap: var(--space-2);
+    }
+
+    .header-nav :global(.nav-links) {
+      position: static;
+    }
   }
 </style>

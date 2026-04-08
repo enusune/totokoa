@@ -34,16 +34,25 @@ const { posts } = Astro.props;
 ---
 
 <BaseLayout pageTitle={tag}>
-  <p>Posts with the "{tag}" tag</p>
-  {
-    posts?.length > 0 ? (
-      <ul>
-        {posts.map((post: any) => (
-          <BlogPost url={post.url} title={post.title} pubDate={post.pubDate} />
-        ))}
-      </ul>
-    ) : (
-      <p>No posts found with the "{tag}" tag</p>
-    )
-  }
+  <section class="page-stack">
+    <header class="page-header">
+      <span class="page-eyebrow">Tag</span>
+      <h1 class="page-title">{tag}</h1>
+      <p class="page-description">Posts filed under this topic.</p>
+    </header>
+
+    {
+      posts?.length > 0 ? (
+        <ul class="plain-list">
+          {posts.map((post: any) => (
+            <BlogPost url={post.url} title={post.title} pubDate={post.pubDate} />
+          ))}
+        </ul>
+      ) : (
+        <div class="page-body">
+          <p>No posts found with the "{tag}" tag.</p>
+        </div>
+      )
+    }
+  </section>
 </BaseLayout>

@@ -1,47 +1,48 @@
-# Astro Starter Kit: Basics
+# totokoa
+
+一个基于 Astro 构建的静态博客项目，当前包含：
+
+- 首页与博客列表页
+- Markdown 文章页
+- 标签聚合页
+- RSS 输出
+- Preact island 交互组件
+
+## 技术栈
+
+- Astro 6
+- Preact
+- TypeScript
+- pnpm
+
+## 本地开发
 
 ```sh
-pnpm create astro@latest -- --template basics
+pnpm install
+pnpm dev
 ```
 
-> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
+默认本地地址为 `http://localhost:4321`。
 
-## 🚀 Project Structure
+## 常用命令
 
-Inside of your Astro project, you'll see the following folders and files:
+```sh
+pnpm dev
+pnpm build
+pnpm preview
+pnpm astro -- --help
+```
+
+## 目录概览
 
 ```text
-/
-├── public/
-│   └── favicon.svg
-├── src
-│   ├── assets
-│   │   └── astro.svg
-│   ├── components
-│   │   └── Welcome.astro
-│   ├── layouts
-│   │   └── Layout.astro
-│   └── pages
-│       └── index.astro
-└── package.json
+src/
+  components/   可复用组件，Astro 为主，少量 Preact
+  layouts/      页面与文章布局
+  pages/        文件系统路由与 Markdown 文章
+  scripts/      轻量前端脚本
+  styles/       全局样式
+public/         静态资源
 ```
 
-To learn more about the folder structure of an Astro project, refer to [our guide on project structure](https://docs.astro.build/en/basics/project-structure/).
-
-## 🧞 Commands
-
-All commands are run from the root of the project, from a terminal:
-
-| Command                   | Action                                           |
-| :------------------------ | :----------------------------------------------- |
-| `pnpm install`             | Installs dependencies                            |
-| `pnpm dev`             | Starts local dev server at `localhost:4321`      |
-| `pnpm build`           | Build your production site to `./dist/`          |
-| `pnpm preview`         | Preview your build locally, before deploying     |
-| `pnpm astro ...`       | Run CLI commands like `astro add`, `astro check` |
-| `pnpm astro -- --help` | Get help using the Astro CLI                     |
-
-## 👀 Want to learn more?
-
-Feel free to check [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
-# totokoa
+更详细的协作约束、目录说明和注意事项见 `AGENTS.md`。
