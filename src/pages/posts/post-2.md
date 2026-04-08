@@ -1,6 +1,6 @@
 ---
 layout: ../../layouts/MarkdownPostLayout.astro
-title: 'The "Siesta" Workflow'
+title: 'The "Siesta" Workflow: How I Replaced Manual Coding with Codex Autonomy'
 pubDate: 2026-04-08
 description: "How I Replaced Manual Coding with Codex Autonomy"
 author: "Enusune"
@@ -10,8 +10,6 @@ image:
 tags: ["Codex", "AGENTS", "SKILLS"]
 keywords: ["Codex", "AI Programmer", "OpenAI", "ChatGPT", "Lark Bot"]
 ---
-
-# The "Siesta" Workflow: How I Replaced Manual Coding with Codex Autonomy
 
 For a long time, tools like Cursor and Claude Code were my go-to companions. However, due to recent logistical shifts, I found myself transitioning to a new setup that changed my entire development philosophy: **switching to Codex.**
 
