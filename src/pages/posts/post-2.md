@@ -1,6 +1,6 @@
 ---
 layout: ../../layouts/MarkdownPostLayout.astro
-title: "The "Siesta" Workflow"
+title: 'The "Siesta" Workflow'
 pubDate: 2026-04-08
 description: "How I Replaced Manual Coding with Codex Autonomy"
 author: "Enusune"
