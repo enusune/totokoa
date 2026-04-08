@@ -9,6 +9,9 @@ interface Props {
   image?: { url: string; alt: string };
   author?: string;
   pubDate?: string;
+  keywords?: string[];
+  robots?: string;
+  structuredData?: Record<string, unknown> | Record<string, unknown>[];
   type?: "website" | "article";
 }
 
@@ -18,12 +21,39 @@ const {
   image,
   author = "Enusune",
   pubDate,
+  keywords = [],
+  robots = "index,follow,max-image-preview:large",
+  structuredData = [],
   type = "website",
 } = Astro.props;
 
 const canonicalURL = new URL(Astro.url.pathname, Astro.site);
 const ogImage = image?.url ?? new URL("/favicon.svg", Astro.site).href;
 const siteName = "Bloooooooooog";
+const normalizedStructuredData = Array.isArray(structuredData)
+  ? structuredData
+  : [structuredData];
+const baseSchema = {
+  "@context": "https://schema.org",
+  "@type": "WebPage",
+  headline: pageTitle,
+  description,
+  url: canonicalURL.href,
+  image: [ogImage],
+  author: {
+    "@type": "Person",
+    name: author,
+  },
+  datePublished: pubDate,
+  isPartOf: {
+    "@type": "WebSite",
+    name: siteName,
+    url: Astro.site?.href,
+  },
+};
+const combinedStructuredData = [baseSchema, ...normalizedStructuredData].filter(
+  (item) => Object.keys(item).length > 0,
+);
 ---
 
 <html lang="en">
@@ -37,10 +67,14 @@ const siteName = "Bloooooooooog";
     <title>{pageTitle} | {siteName}</title>
     <meta name="description" content={description} />
     {author && <meta name="author" content={author} />}
+    {keywords.length > 0 && <meta name="keywords" content={keywords.join(", ")} />}
+    <meta name="robots" content={robots} />
+    <meta name="theme-color" content="#111111" />
 
     <!-- Open Graph -->
     <meta property="og:type" content={type} />
     <meta property="og:site_name" content={siteName} />
+    <meta property="og:locale" content="en_US" />
     <meta property="og:title" content={pageTitle} />
     <meta property="og:description" content={description} />
     <meta property="og:url" content={canonicalURL} />
@@ -53,6 +87,8 @@ const siteName = "Bloooooooooog";
     <meta name="twitter:title" content={pageTitle} />
     <meta name="twitter:description" content={description} />
     <meta name="twitter:image" content={ogImage} />
+    {image?.alt && <meta name="twitter:image:alt" content={image.alt} />}
+    <meta name="twitter:url" content={canonicalURL} />
 
     <!-- RSS -->
     <link
@@ -60,6 +96,11 @@ const siteName = "Bloooooooooog";
       type="application/rss+xml"
       title={siteName}
       href="/rss.xml"
+    />
+    <link rel="sitemap" href="/sitemap-index.xml" />
+    <script
+      type="application/ld+json"
+      set:html={JSON.stringify(combinedStructuredData)}
     />
 
     <script is:inline>

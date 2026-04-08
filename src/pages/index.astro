@@ -2,6 +2,8 @@
 import BlogPost from "../components/BlogPost.astro";
 import BaseLayout from "../layouts/BaseLayout.astro";
 const pageTitle = "Home";
+const description =
+  "AI tooling notes, coding workflow essays, and recent posts on full-stack development.";
 const allPosts = Object.values(
   import.meta.glob("./posts/*.md", { eager: true }),
 ).sort(
@@ -9,12 +11,27 @@ const allPosts = Object.values(
     new Date(b.frontmatter.pubDate).getTime() -
     new Date(a.frontmatter.pubDate).getTime(),
 );
+const structuredData = {
+  "@context": "https://schema.org",
+  "@type": "CollectionPage",
+  name: "Latest blog posts",
+  description,
+};
 ---
 
-<BaseLayout pageTitle={pageTitle}>
+<BaseLayout
+  pageTitle={pageTitle}
+  description={description}
+  structuredData={structuredData}
+>
   <section class="page-stack">
     <header class="page-header">
       <span class="page-eyebrow">Latest Notes</span>
+      <!-- <h1 class="page-title">AI tooling and shipping notes</h1>
+      <p class="page-description">
+        Practical writing on autonomous coding workflows, developer tools, and
+        full-stack execution.
+      </p> -->
     </header>
 
     <ul class="plain-list">

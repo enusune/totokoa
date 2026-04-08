@@ -31,14 +31,25 @@ export async function getStaticPaths() {
 
 const { tag } = Astro.params;
 const { posts } = Astro.props;
+const description = `Posts filed under the ${tag} topic.`;
+const structuredData = {
+  "@context": "https://schema.org",
+  "@type": "CollectionPage",
+  name: `${tag} posts`,
+  description,
+};
 ---
 
-<BaseLayout pageTitle={tag}>
+<BaseLayout
+  pageTitle={tag}
+  description={description}
+  structuredData={structuredData}
+>
   <section class="page-stack">
     <header class="page-header">
       <span class="page-eyebrow">Tag</span>
       <h1 class="page-title">{tag}</h1>
-      <p class="page-description">Posts filed under this topic.</p>
+      <p class="page-description">{description}</p>
     </header>
 
     {

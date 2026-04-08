@@ -1,12 +1,29 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
 const pageTitle = "About";
+const description =
+  "About Enusune, a full-stack developer writing about AI tooling and practical software delivery.";
+const structuredData = {
+  "@context": "https://schema.org",
+  "@type": "AboutPage",
+  name: "About Enusune",
+  description,
+};
 ---
 
-<BaseLayout pageTitle={pageTitle}>
+<BaseLayout
+  pageTitle={pageTitle}
+  description={description}
+  structuredData={structuredData}
+>
   <section class="page-stack">
     <header class="page-header">
       <span class="page-eyebrow">About</span>
+      <!-- <h1 class="page-title">About Enusune</h1>
+      <p class="page-description">
+        Full-stack engineering, AI tooling, and the execution discipline behind
+        shipping useful software.
+      </p> -->
     </header>
 
     <div class="page-body">

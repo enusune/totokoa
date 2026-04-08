@@ -7,5 +7,6 @@ export async function GET(context) {
         site: context.site,
         items: await pagesGlobToRssItems(import.meta.glob('./**/*.md')),
         customData: `<language>en</language>`,
+        stylesheet: false,
     });
 }

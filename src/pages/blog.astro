@@ -2,16 +2,35 @@
 import BaseLayout from "../layouts/BaseLayout.astro";
 import BlogPost from "../components/BlogPost.astro";
 
-const allPosts = Object.values(
-  import.meta.glob("./posts/*.md", { eager: true }),
+const description =
+  "Browse the full archive of posts on AI tools, software delivery, and engineering workflow.";
+const allPosts = Object.values(import.meta.glob("./posts/*.md", { eager: true })).sort(
+  (a: any, b: any) =>
+    new Date(b.frontmatter.pubDate).getTime() -
+    new Date(a.frontmatter.pubDate).getTime(),
 );
 const pageTitle = "Blog";
+const structuredData = {
+  "@context": "https://schema.org",
+  "@type": "Blog",
+  name: "Bloooooooooog archive",
+  description,
+};
 ---
 
-<BaseLayout pageTitle={pageTitle}>
+<BaseLayout
+  pageTitle={pageTitle}
+  description={description}
+  structuredData={structuredData}
+>
   <section class="page-stack">
     <header class="page-header">
       <span class="page-eyebrow">Archive</span>
+      <!-- <h1 class="page-title">Blog archive</h1>
+      <p class="page-description">
+        Every post in reverse chronological order for easier crawling and
+        browsing.
+      </p> -->
     </header>
 
     <ul class="plain-list">
