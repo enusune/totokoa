@@ -245,12 +245,10 @@ hr {
 }
 
 .page-description {
-  max-width: 56ch;
   margin-bottom: 0;
 }
 
 .page-body {
-  max-width: 60ch;
 }
 
 .page-body > *:last-child {
