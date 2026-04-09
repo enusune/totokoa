@@ -1,0 +1,84 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+
+const pageTitle = "Tools";
+const description =
+  "A growing collection of browser-based utilities for validation, formatting, and other developer workflows.";
+const structuredData = {
+  "@context": "https://schema.org",
+  "@type": "CollectionPage",
+  name: "Developer Tools",
+  description,
+};
+
+const tools = [
+  {
+    href: "/tools/json/",
+    name: "JSON Formatter",
+    description:
+      "Validate JSON, prettify output, minify payloads, and convert escaped strings.",
+  },
+];
+---
+
+<BaseLayout
+  pageTitle={pageTitle}
+  description={description}
+  structuredData={structuredData}
+>
+  <section class="page-stack">
+    <header class="page-header">
+      <span class="page-eyebrow">Tools</span>
+    </header>
+
+    <ul class="plain-list tools-list">
+      {
+        tools.map((tool) => (
+          <li class="tool-card">
+            <a class="tool-card-link" href={tool.href}>
+              <span class="tool-card-name">{tool.name}</span>
+              <span class="tool-card-description">{tool.description}</span>
+            </a>
+          </li>
+        ))
+      }
+    </ul>
+  </section>
+</BaseLayout>
+
+<style>
+  .tools-list {
+    display: grid;
+    gap: var(--space-3);
+  }
+
+  .tool-card {
+    margin: 0;
+  }
+
+  .tool-card-link {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-1);
+    padding: var(--space-4);
+    border: var(--border-width) dashed var(--color-border);
+    border-radius: var(--radius-md);
+    background: var(--color-surface);
+    color: var(--color-text);
+  }
+
+  .tool-card-link:hover,
+  .tool-card-link:focus {
+    border-color: var(--color-border-strong);
+    background: var(--color-surface-elevated);
+    color: var(--color-text);
+  }
+
+  .tool-card-name {
+    font-weight: var(--font-weight-medium);
+  }
+
+  .tool-card-description {
+    color: var(--color-text-muted);
+  }
+</style>

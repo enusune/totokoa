@@ -1,0 +1,310 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+
+const pageTitle = "JSON Formatter";
+const description =
+  "Validate, format, minify, escape, and unescape JSON directly in the browser.";
+const structuredData = {
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  name: "JSON Formatter",
+  description,
+  applicationCategory: "DeveloperApplication",
+  operatingSystem: "Any",
+};
+---
+
+<BaseLayout
+  pageTitle={pageTitle}
+  description={description}
+  structuredData={structuredData}
+>
+  <section class="page-stack">
+    <header class="page-header">
+      <span class="page-eyebrow">JSON Formatter</span>
+    </header>
+
+    <div class="json-tool">
+      <div class="tool-panel">
+        <label class="field-label" for="json-input">Input</label>
+        <textarea
+          id="json-input"
+          class="tool-textarea"
+          spellcheck="false"
+          placeholder='{"message":"hello","items":[1,2,3]}'></textarea>
+      </div>
+
+      <div class="tool-actions" aria-label="JSON actions">
+        <button type="button" class="tool-button" data-action="validate">
+          Validate
+        </button>
+        <button type="button" class="tool-button" data-action="format">
+          Format
+        </button>
+        <button type="button" class="tool-button" data-action="minify">
+          Minify
+        </button>
+        <button type="button" class="tool-button" data-action="escape">
+          Escape
+        </button>
+        <button type="button" class="tool-button" data-action="unescape">
+          Unescape
+        </button>
+        <button type="button" class="tool-button" data-action="swap">
+          Swap
+        </button>
+        <button type="button" class="tool-button" data-action="copy">
+          Copy Output
+        </button>
+        <button type="button" class="tool-button" data-action="clear">
+          Clear
+        </button>
+      </div>
+
+      <div class="tool-panel">
+        <div class="panel-head">
+          <label class="field-label" for="json-output">Output</label>
+          <span id="json-status" class="status-text" aria-live="polite"></span>
+        </div>
+        <textarea
+          id="json-output"
+          class="tool-textarea"
+          spellcheck="false"
+          readonly
+          placeholder="Result will appear here"></textarea>
+      </div>
+    </div>
+
+    <div class="page-body tool-notes">
+      <p>
+        Escape returns a valid JSON string literal. Unescape accepts either a
+        quoted JSON string or plain escaped text.
+      </p>
+    </div>
+  </section>
+
+  <script is:inline>
+    const input = document.querySelector("#json-input");
+    const output = document.querySelector("#json-output");
+    const status = document.querySelector("#json-status");
+    const actionButtons = document.querySelectorAll("[data-action]");
+
+    const setStatus = (message, tone = "neutral") => {
+      if (!(status instanceof HTMLElement)) return;
+      status.textContent = message;
+      status.dataset.tone = tone;
+    };
+
+    const readInput = () => {
+      if (!(input instanceof HTMLTextAreaElement)) return "";
+      return input.value.trim();
+    };
+
+    const writeOutput = (value) => {
+      if (output instanceof HTMLTextAreaElement) {
+        output.value = value;
+      }
+    };
+
+    const parseJson = (value) => JSON.parse(value);
+
+    const escapeJsonString = (value) => JSON.stringify(value);
+
+    const unescapeJsonString = (value) => {
+      const normalized = value.startsWith('"') ? value : `"${value}"`;
+      const parsed = JSON.parse(normalized);
+      if (typeof parsed !== "string") {
+        throw new Error("Input is not a JSON string");
+      }
+      return parsed;
+    };
+
+    const handlers = {
+      validate() {
+        const value = readInput();
+        if (!value) {
+          writeOutput("");
+          setStatus("Enter JSON input first", "error");
+          return;
+        }
+        const parsed = parseJson(value);
+        writeOutput(JSON.stringify(parsed, null, 2));
+        setStatus("Valid JSON", "success");
+      },
+      format() {
+        const parsed = parseJson(readInput());
+        writeOutput(JSON.stringify(parsed, null, 2));
+        setStatus("Formatted", "success");
+      },
+      minify() {
+        const parsed = parseJson(readInput());
+        writeOutput(JSON.stringify(parsed));
+        setStatus("Minified", "success");
+      },
+      escape() {
+        const value = readInput();
+        writeOutput(escapeJsonString(value));
+        setStatus("Escaped as JSON string", "success");
+      },
+      unescape() {
+        const value = readInput();
+        writeOutput(unescapeJsonString(value));
+        setStatus("Unescaped", "success");
+      },
+      swap() {
+        if (
+          !(input instanceof HTMLTextAreaElement) ||
+          !(output instanceof HTMLTextAreaElement)
+        ) {
+          return;
+        }
+        const nextValue = output.value;
+        output.value = input.value;
+        input.value = nextValue;
+        setStatus("Swapped input and output", "neutral");
+      },
+      async copy() {
+        if (!(output instanceof HTMLTextAreaElement) || !output.value) {
+          setStatus("Nothing to copy", "error");
+          return;
+        }
+        await navigator.clipboard.writeText(output.value);
+        setStatus("Output copied", "success");
+      },
+      clear() {
+        if (input instanceof HTMLTextAreaElement) {
+          input.value = "";
+        }
+        writeOutput("");
+        setStatus("Cleared", "neutral");
+      },
+    };
+
+    actionButtons.forEach((button) => {
+      button.addEventListener("click", async () => {
+        const action = button.dataset.action;
+        const handler = action ? handlers[action] : null;
+        if (!handler) return;
+
+        try {
+          await handler();
+        } catch (error) {
+          const message =
+            error instanceof Error ? error.message : "Action failed";
+          setStatus(message, "error");
+        }
+      });
+    });
+  </script>
+</BaseLayout>
+
+<style>
+  .json-tool {
+    display: grid;
+    gap: var(--space-4);
+  }
+
+  .tool-panel {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
+  }
+
+  .panel-head {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: var(--space-3);
+    flex-wrap: wrap;
+  }
+
+  .field-label {
+    font-size: var(--font-size-sm);
+    font-weight: var(--font-weight-medium);
+    color: var(--color-text);
+  }
+
+  .tool-textarea {
+    width: 100%;
+    min-height: 18rem;
+    resize: vertical;
+    border: var(--border-width) dashed var(--color-border);
+    border-radius: var(--radius-md);
+    background: var(--color-surface);
+    color: var(--color-text);
+    font: inherit;
+    font-family: var(--font-mono);
+    font-size: var(--font-size-sm);
+    line-height: var(--line-height-normal);
+    padding: var(--space-4);
+  }
+
+  .tool-textarea:focus {
+    outline: none;
+    border-color: var(--color-border-strong);
+  }
+
+  .tool-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-2);
+  }
+
+  .tool-button {
+    appearance: none;
+    border: var(--border-width) dashed var(--color-border);
+    border-radius: var(--radius-lg);
+    background: var(--color-surface);
+    color: var(--color-text);
+    font: inherit;
+    font-size: var(--font-size-sm);
+    font-weight: var(--font-weight-medium);
+    padding: 0.6rem 0.85rem;
+    cursor: pointer;
+    transition:
+      border-color 0.15s ease,
+      background-color 0.15s ease,
+      color 0.15s ease;
+  }
+
+  .tool-button:hover,
+  .tool-button:focus-visible {
+    outline: none;
+    border-color: var(--color-border-strong);
+    background: var(--color-surface-elevated);
+  }
+
+  .status-text {
+    font-size: var(--font-size-sm);
+    color: var(--color-text-muted);
+  }
+
+  .status-text[data-tone="success"] {
+    color: var(--color-text);
+  }
+
+  .status-text[data-tone="error"] {
+    color: #b42318;
+  }
+
+  .tool-notes p {
+    margin-bottom: 0;
+  }
+
+  .dark .status-text[data-tone="error"] {
+    color: #ff8b8b;
+  }
+
+  @media screen and (min-width: 900px) {
+    .json-tool {
+      grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
+      align-items: start;
+    }
+
+    .tool-actions {
+      flex-direction: column;
+      position: sticky;
+      top: calc(var(--space-16) + 4rem);
+    }
+  }
+</style>
